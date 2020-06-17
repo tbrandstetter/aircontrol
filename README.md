@@ -25,6 +25,11 @@ The aircontrol service allows you to monitor and manage Drexel & Weiss home vent
 - X²
 - X² Plus
 
+## Prerequisite on the device
+For communication between the device and Aircontrol you have to connect an USB-Cable (USB Type B) to the service connector of the device. The location of the service connector can be different from device to device, so please make sure to read the documentation of your device, before you go on.
+
+Additionally you have to set the "Serial Interface Operation Mode" to "Debug".
+
 ## Build
 ``git clone https://github.com/tbrandstetter/aircontrol.git``
 
