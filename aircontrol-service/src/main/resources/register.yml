@@ -1,0 +1,1942 @@
+# register.yml
+duw:
+  register:
+    - id: 1032
+      description: Raum-Heizstufe 1
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 1034
+      description: Raum-Heizstufe 2
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 1036
+      description: Brauchwasserheizung Waermepumpe
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices:  [4, 5, 6, 7, 10, 14]
+    - id: 1038
+      description: Brauchwasserheizung Elektoheizstab
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [4, 5, 6, 7, 10, 14]
+    - id: 1040
+      description: Grobstaubfilter wechseln!
+      min: 0
+      max: 127
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1042
+      description: Feinstaubfilter wechseln!
+      min: 0
+      max: 127
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1044
+      description: Waermepumpe
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [3, 25]
+    - id: 1048
+      description: CO2-Messung
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 1066
+      description: Aktive Luefterstufe
+      min: 0
+      max: 4
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 1082
+      description: Soll-Volumenstrom Zuluft
+      min: 0
+      max: 280
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 1084
+      description: Soll-Volumenstrom Abluft
+      min: 0
+      max: 280
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 1092
+      description: Drehzahl Zuluftventilator %
+      min: 0
+      max: 10000
+      divisor: 100
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 1094
+      description: Drehzahl Abluftventilator %
+      min: 0
+      max: 10000
+      divisor: 100
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 1146
+      description: Frostschutz
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [10, 14]
+    - id: 1156
+      description: SW-Version
+      min: 0
+      max: 1000000
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 1158
+      description: SNR
+      min: 1
+      max: 999999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 1160
+      description: HW-Version
+      min: 0
+      max: 900
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 1162
+      description: HW-Version SUB1
+      min: 0
+      max: 900
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 1164
+      description: HW-Version SUB2
+      min: 0
+      max: 900
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 1174
+      description: Tag
+      min: 1
+      max: 7
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 1178
+      description: Hardwaretype
+      min: 1
+      max: 6
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1184
+      description: Drehzahl Zuluftventilator 1/min
+      min: 0
+      max: 3500
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 1186
+      description: Drehzahl Abluftventilator 1/min
+      min: 0
+      max: 3500
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 1198
+      description: Sole fuer Aussenlufterwaermung
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1216
+      description: Bypassklappe
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [8, 17, 25]
+    - id: 1218
+      description: Beschattung
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 9, 10, 11, 13, 14, 17, 25]
+    - id: 1230
+      description: Druckdifferenz Zuluft
+      min: 0
+      max: 5000
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1232
+      description: Druckdifferenz Abluft
+      min: 0
+      max: 5000
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1238
+      description: Ist-Volumenstrom Zuluft
+      min: 0
+      max: 1000
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1240
+      description: Ist-Volumenstrom Abluft
+      min: 0
+      max: 1000
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 1292
+      description: Anforderung der Ventilatoren durch Waermepumpe
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 25]
+    - id: 1294
+      description: Vereisungsschutz
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 25]
+    - id: 1300
+      description: Betriebsart Sommerautomatik
+      min: 0
+      max: 2
+      divisor: 1
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 1320
+      description: Sole Kuehlung
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [8, 17]
+    - id: 1322
+      description:  Sommerautomatik
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 25]
+    - id: 1336
+      description:  Ventilatoren extern
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2000
+      description: History Datum01
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2002
+      description: History Datum02
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2004
+      description: History Datum03
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2006
+      description: History Datum04
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2008
+      description: History Datum05
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 200
+      description: Raumtemperatur
+      min: -28000
+      max: 100000
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2010
+      description: History Datum06
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2012
+      description: History Datum07
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2014
+      description: History Datum08
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2016
+      description: History Datum09
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2018
+      description: History Datum10
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2020
+      description: History Datum11
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2022
+      description: History Datum12
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2024
+      description: History Datum13
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2026
+      description: History Datum14
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2028
+      description: History Datum15
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 202
+      description: Aussenluft
+      min: -28000
+      max: 100000
+      divisor: 100
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2030
+      description: History Datum16
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2032
+      description: History Datum17
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2034
+      description: History Datum18
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2036
+      description: History Datum19
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2038
+      description: History Datum20
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2040
+      description: History Datum21
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2042
+      description: History Datum22
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2044
+      description: History Datum23
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2046
+      description: History Datum24
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2048
+      description: History Datum25
+      min: 0
+      max: 31249999
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2050
+      description: History Zeit01
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2052
+      description: History Zeit02
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2054
+      description: History Zeit03
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2056
+      description: History Zeit04
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2058
+      description: History Zeit05
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2060
+      description: History Zeit06
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2062
+      description: History Zeit07
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2064
+      description: History Zeit08
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2066
+      description: History Zeit09
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 2068
+      description: History Zeit10
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 206
+      description: Temperatur Sole nach Aussenluftvorwaermung
+      min: -28000
+      max: 100000
+      divisor: 100
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 2070
+      description: History Zeit11
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2072
+      description: History Zeit12
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2074
+      description: History Zeit13
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2076
+      description: History Zeit14
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2078
+      description: History Zeit15
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2080
+      description: History Zeit16
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2082
+      description: History Zeit17
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2084
+      description: History Zeit18
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2086
+      description: History Zeit19
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2088
+      description: History Zeit20
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 208
+      description: Fortluft Plattenwaermetauscher
+      min: -28000
+      max: 100000
+      divisor: 100
+      access: R
+      devices: [8,15]
+    - id: 2090
+      description: History Zeit21
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2092
+      description: History Zeit22
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2094
+      description: History Zeit23
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2096
+      description: History Zeit24
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2098
+      description: History Zeit25
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2100
+      description: History Summenstoerung 01
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2102
+      description: History Summenstoerung 02
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2104
+      description: History Summenstoerung 03
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2106
+      description: History Summenstoerung 04
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2108
+      description: History Summenstoerung 05
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2110
+      description: History Summenstoerung 06
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2112
+      description: History Summenstoerung 07
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2114
+      description: History Summenstoerung 08
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2116
+      description: History Summenstoerung 09
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2118
+      description: History Summenstoerung 10
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2120
+      description: History Summenstoerung 11
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2122
+      description: History Summenstoerung 12
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2124
+      description: History Summenstoerung 13
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2126
+      description: History Summenstoerung 14
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2128
+      description: History Summenstoerung 15
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2130
+      description: History Summenstoerung 16
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2132
+      description: History Summenstoerung 17
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2134
+      description: History Summenstoerung 18
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2136
+      description: History Summenstoerung 19
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2138
+      description: History Summenstoerung 20
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2140
+      description: History Summenstoerung 21
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2142
+      description: History Summenstoerung 22
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2144
+      description: History Summenstoerung 23
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2146
+      description: History Summenstoerung 24
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2148
+      description: History Summenstoerung 25
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2150
+      description: History Summenstoerung (2)01
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2152
+      description: History Summenstoerung (2)02
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2154
+      description: History Summenstoerung (2)03
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2156
+      description: History Summenstoerung (2)04
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2158
+      description: History Summenstoerung (2)05
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2160
+      description: History Summenstoerung (2)06
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2162
+      description: History Summenstoerung (2)07
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2164
+      description: History Summenstoerung (2)08
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2166
+      description: History Summenstoerung (2)09
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2168
+      description: History Summenstoerung (2)10
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 216
+      description: Sole
+      min: -28000
+      max: 100000
+      divisor: 100
+      access: R
+      devices: [7,10, 14]
+    - id: 2170
+      description: History Summenstoerung (2)11
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2172
+      description: History Summenstoerung (2)12
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2174
+      description: History Summenstoerung (2)13
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2176
+      description: History Summenstoerung (2)14
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2178
+      description: History Summenstoerung (2)15
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2180
+      description: History Summenstoerung (2)16
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2182
+      description: History Summenstoerung (2)17
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2184
+      description: History Summenstoerung (2)18
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2186
+      description: History Summenstoerung (2)19
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2188
+      description: History Summenstoerung (2)20
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 218
+      description: Differenzdruck Zuluft
+      min: 5000
+      max: 500000
+      divisor: 1000
+      access: R
+      devices: [8,15]
+    - id: 2190
+      description: History Summenstoerung (2)21
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2192
+      description: History Summenstoerung (2)22
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2194
+      description: History Summenstoerung (2)23
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2196
+      description: History Summenstoerung (2)24
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 2198
+      description: History Summenstoerung (2)25
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 226
+      description: Revisionstuere
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 228
+      description: LST3_EXT
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 220
+      description: Differenzdruck Abluft
+      min: 5000
+      max: 500000
+      divisor: 1000
+      access: R
+      devices: [8, 15]
+    - id: 230
+      description: CO2
+      min: 100
+      max: 1950
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 238
+      description: Kontakt Brandmeldealarm
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 240
+      description: Vorlauf Niedertemperatur-Heizkreis
+      min: -28000
+      max: 100000
+      divisor: 100
+      access: R
+      devices: [10, 14]
+    - id: 252
+      description: Relaiskontakt EXT
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 282
+      description: Raumfeuchte
+      min: 500
+      max: 100000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 286
+      description: Aussentemperatur
+      min: -28000
+      max: 100000
+      divisor: 100
+      access: R
+      devices: [25]
+    - id: 5000
+      description: Geraetetyp
+      min: 1
+      max: 92
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5002
+      description: Betriebsart
+      min: 0
+      max: 5
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5016
+      description: Raum-Soll
+      min: 14000
+      max: 26000
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 5018
+      description: Drehzahl Zuluftventilator
+      min: 0
+      max: 10000
+      divisor: 100
+      access: R/W
+      devices: [8, 15, 25]
+    - id: 5020
+      description: Drehzahl Abluftventilator
+      min: 0
+      max: 10000
+      divisor: 100
+      access: R/W
+      devices: [8, 15, 25]
+    - id: 5026
+      description: Volumenstrombalance Zuluft-Abluft
+      min: -10
+      max: 30
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25(min-50)]
+    - id: 5030
+      description: Standzeit Grobstaubfilter
+      min: 131400
+      max: 1051200
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5032
+      description: Standzeit Feinstaubfilter
+      min: 131400
+      max: 1051200
+      divisor: 60
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5034
+      description: Feinstaubfilter vorhanden?
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5038
+      description: Zeitspanne Funktion PARTY
+      min: 3600
+      max: 14400
+      divisor: 60
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25(min600)]
+    - id: 5054
+      description: CO2-Sensor vorhanden?
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5060
+      description: Soll-Volumenstrom Luefterstufe2
+      min: 40
+      max: 230
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25(max600]
+    - id: 5068
+      description: Brandmeldeanlage vorhanden?
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5084
+      description: Temperatur Aussenluft - Bypass oeffnen
+      min: 10000
+      max: 20000
+      divisor: 1000
+      access: R/W
+      devices: [8, 17, 25]
+    - id: 5086
+      description: Temperatur Aussenluft - Bypass schliessen
+      min: 10000
+      max: 20000
+      divisor: 1000
+      access: R/W
+      devices: [8, 17, 25]
+    - id: 5088
+      description: Temperatur Aussenluft - Frostschutz ein
+      min: -10000
+      max: 5000
+      divisor: 1000
+      access: R/W
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 5090
+      description: Temperatur Aussenluft - Frostschutz aus
+      min: -10000
+      max: 5000
+      divisor: 1000
+      access: R/W
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 5154
+      description: Grobstaubfilter vorhanden?
+      min: 0
+      max: 1
+      divisor: 0
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5164
+      description: Grobstaubfilter Betriebsart Filterueberwachung
+      min: 1
+      max: 3
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5166
+      description: Grobstaubfilter Maximales Foerdervolumen
+      min: 100000
+      max: 1000000
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25(max1500000)]
+    - id: 5168
+      description: Pelletofen vorhanden?
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17, 25]
+    - id: 5186
+      description: Temperaturschwelle Aussenluft Heizen / Kuehlen
+      min: 12000
+      max: 22000
+      divisor: 100
+      access: R/W
+      devices: [10, 14]
+    - id: 5192
+      description: Kuehlung vorhanden?
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 5198
+      description: Temperatur Aussenluft - Kuehlung ein
+      min: 17000
+      max: 23000
+      divisor: 1000
+      access: R/W
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 5200
+      description: Temperatur Aussenluft - Kuehlung aus
+      min: 16000
+      max: 22000
+      divisor: 1000
+      access: R/W
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 17, 25]
+    - id: 5206
+      description: Temperatur Aussenluft-  Frostschutz
+      min: -5000
+      max: 0
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5210
+      description: Datum
+      min: 0
+      max: 99999999
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5212
+      description: Uhrzeit
+      min: 0
+      max: 235959
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5268
+      description: Maximal zulaessige Drehzahl Zuluftventilator
+      min: 1500
+      max: 6000
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17, 25]
+    - id: 5270
+      description: Maximal zulaessige Drehzahl Abluftventilator
+      min: 1500
+      max: 6000
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17, 25]
+    - id: 5274
+      description: CO2-Zielwert Luefterstufe0
+      min: 400
+      max: 600
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5276
+      description: CO2-Zielwert Luefterstufe1
+      min: 601
+      max: 799
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5278
+      description: CO2-Zielwert Luefterstufe2
+      min: 800
+      max: 999
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5280
+      description: CO2-Zielwert Luefterstufe3
+      min: 1000
+      max: 1500
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5282
+      description: Pelletofen - Anlaufverzoegerung
+      min: 1
+      max: 60
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17, 25]
+    - id: 5284
+      description: Pelletofen - Mindestlaufzeit
+      min: 1
+      max: 60
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17, 25]
+    - id: 5304
+      description: Aussenluftfuehler vorhanden?
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5328
+      description: Absenkung der Luefterstufe1
+      min: 30
+      max: 70
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5330
+      description: Erhoehung der Luefterstufe3
+      min: 30
+      max: 100
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5336
+      description: Beschattungsfunktion
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 5338
+      description: Raumtemperatur - Beschattung
+      min: 20000
+      max: 26000
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17, 25]
+    - id: 5340
+      description: Temperatur Aussenluft - Beschattung
+      min: 12000
+      max: 22000
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17, 25]
+    - id: 5360
+      description: Grenztemperatur fuer Vereisungsschutz
+      min: -40000
+      max: -8000
+      divisor: 1000
+      access: R/W
+      devices: [8, 13, 15, 25]
+    - id: 5376
+      description: Einschaltpunkt (Hysterese) Raum-Heizstufe1
+      min: -300
+      max: -100
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 17]
+    - id: 5378
+      description: Ausschaltpunkt (Hysterese) Raum-Heizstufe1
+      min: 100
+      max: 300
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 17]
+    - id: 5380
+      description: Einschaltpunkt (Hysterese) Raum-Heizstufe2
+      min: -1500
+      max: -500
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 17]
+    - id: 5382
+      description: Ausschaltpunkt (Hysterese) Raum-Heizstufe2
+      min: -1000
+      max: 0
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 17]
+    - id: 5384
+      description: Funktion "Sommerautomatik"
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 17]
+    - id: 5386
+      description: Temperatur Aussenluft - Sommerautomatik aktivieren
+      min: 10000
+      max: 19000
+      divisor: 1000
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 17]
+    - id: 5388
+      description: Temperatur Aussenluft - Sommerautomatik deaktivieren
+      min: 20000
+      max: 30000
+      divisor: 1000
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 17]
+    - id: 5390
+      description: Sommerautomatik Schaltpunkt 1 Zuluftbetrieb
+      min: 0
+      max: 2400
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 17]
+    - id: 5392
+      description: Sommerautomatik Schaltpunkt 2 Normalbetrieb
+      min: 0
+      max: 2400
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 17]
+    - id: 5394
+      description: Sommerautomatik Schaltpunkt 3 Abluftbetrieb
+      min: 0
+      max: 2400
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 17]
+    - id: 5396
+      description: Sommerautomatik Schaltpunkt 4 Normalbetrieb
+      min: 0
+      max: 2400
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 17]
+    - id: 5398
+      description: Funktion Externe Kontakt
+      min: 0
+      max: 2
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 17]
+    - id: 5422
+      description: Temperatur Aussenluft - Reduktion Luftmenge 10%
+      min: -20000
+      max: 0
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5424
+      description: Temperatur Aussenluft - Reduktion Luftmenge 20%
+      min: -30000
+      max: -10000
+      divisor: 100
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5426
+      description: Fortluftoption
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [8]
+    - id: 5428
+      description: Fortluft-Solltemperatur fuer Frostfreihaltung
+      min: 3000
+      max: 10000
+      divisor: 100
+      access: R
+      devices: [8, 15]
+    - id: 5432
+      description: Funktion Relaiskontakt - Summenstoerung
+      min: 0
+      max: 2
+      divisor: 1
+      access: R/W
+      devices: [8, 15]
+    - id: 5434
+      description: Ventilator - Impulse pro Umdrehung
+      min: 1
+      max: 20
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    - id: 5438
+      description: Messbereich Drucksensor
+      min: 0
+      max: 2
+      divisor: 1
+      access: R
+      devices: [8, 15]
+    - id: 5442
+      description: Uhrzeit und Datum verschicken
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 5450
+      description: Temperatur - Bypass Kuehlung Ein (Bypass schliessen)
+      min: 20000
+      max: 35000
+      divisor: 1000
+      access: R/W
+      devices: [8, 17, 25]
+    - id: 5452
+      description: Temperatur - Bypass Kuehlung Aus (Bypass oeffnen)
+      min: 20000
+      max: 35000
+      divisor: 1000
+      access: R/W
+      devices: [8, 17, 25]
+    - id: 5486
+      description: Mindestluftmenge
+      min: 40
+      max: 230
+      divisor: 1
+      access: R/W
+      devices: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 17]
+    - id: 5492
+      description: Funktion HEIZUNG+
+      min: 0
+      max: 1
+      divisor: 1
+      access: R/W
+      devices: [25]
+    - id: 5494
+      description: Zeitspanne Funktion HEIZUNG+
+      min: 1800
+      max: 14400
+      divisor: 60
+      access: R/W
+      devices: [25]
+    - id: 5496
+      description: Sollwert-Erhoehung Funktion HEIZUNG+
+      min: 300
+      max: 2000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5528
+      description: Minimale Drehzahl Zuluftventilator
+      min: 0
+      max: 10000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5530
+      description: Minimale Drehzahl Abluftventilator
+      min: 0
+      max: 10000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5558
+      description: Raumfeuchte Vorhanden
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 5632
+      description: Aussentemperatur vorhanden
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 5666
+      description: Raumsollwert Nachtauskuehlung
+      min: 18000
+      max: 28000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5668
+      description: Aussentemperatur Nachtauskuehlung
+      min: 5000
+      max: 20000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5670
+      description: Hysterese Nachtauskuehlung Raum
+      min: 2000
+      max: 5000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5672
+      description: Hysterese Nachtauskuehlung Aussenluft
+      min: 2000
+      max: 5000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5674
+      description: Nachtauskuehlung Differenz Raum zu Aussenluft
+      min: 2000
+      max: 10000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5676
+      description: Hysterese Nachtauskuehlung Differenz Raum aussen
+      min: 1000
+      max: 5000
+      divisor: 100
+      access: R/W
+      devices: [25]
+    - id: 5678
+      description: Nachtauskuehlung vorhanden
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 7000
+      description: Information
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 7002
+      description: Grobstaubfilter wechseln!
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 7004
+      description: Feinstaubfilter wechseln!
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 7500
+      description: Summenstoerung2
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 7504
+      description: Stoerung - Temperaturfuehler Sole Aussenluft
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 7506
+      description: Time-Out - Temperaturfuehler Raum
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 7508
+      description: Time-Out - Solltemperatur Raum
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 7544
+      description: Stoerung - Fuehler Aussentemperatur
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 7564
+      description: Stoerung - Fuehler Aussentemperatur Timeout
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 7566
+      description: Summenstoerung 3
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [25]
+    - id: 800
+      description: Summenstoerung
+      min: 0
+      max: 2147483647
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 804
+      description: Stoerung - Temperaturfuehler Raum
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 806
+      description: Stoerung - Temperaturfuehler Aussenluft
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 812
+      description: Stoerung - Temperaturfuehler Sole
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 824
+      description: Stoerung - Zuluftventilator
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 826
+      description: Stoerung - Abluftventilator
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 832
+      description: Stoerung - CO2-Sensor
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 834
+      description: Stoerung - Druckdifferenzregelung Zuluft
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [8, 15]
+    - id: 836
+      description: Stoerung - Druckdifferenzregelung Abluft
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [8, 15]
+    - id: 838
+      description: Brandmeldealarm
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 840
+      description: Stoerung - Wert nicht zulaessig
+      min: 0
+      max: 3
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 848
+      description: Stoerung - Durchflussmenge Heizkreis
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 850
+      description: Stoerung - Temperaturfuehler Heizkreis Vorlauf
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 852
+      description: Stoerung - Druckverlust Zuluft zu gross
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [8, 15]
+    - id: 854
+      description: Stoerung - Druckverlust Abluft zu gross
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [8, 15]
+    - id: 856
+      description: Stoerung - Teilnehmer nicht erreichbar!
+      min: 0
+      max: 1
+      divisor: 1
+      access: R
+      devices: [4, 6, 7, 8, 10, 11, 15]
+    - id: 900
+      description: Betriebsstunden - Zuluftventilator
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 902
+      description: Betriebsstunden - Abluftventilator
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 904
+      description: Betriebsstunden - Luefterstufe1
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 906
+      description: Betriebsstunden - Luefterstufe2
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 908
+      description: Betriebsstunden - Luefterstufe3
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 912
+      description: Betriebsstunden - Heizstufe1
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 914
+      description: Betriebsstunden - Heizstufe2
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 926
+      description: Betriebsstunden - Grobstaubfilter
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 928
+      description: Betriebsstunden - Feinstaubfilter
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 932
+      description: Betriebsstunden - Bypassklappe
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [8, 17, 25]
+    - id: 934
+      description: Betriebsstunden - Sole-Kreis
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 938
+      description: Betriebsstunden - Heizung
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 940
+      description: Betriebsstunden - Frostschutzeinrichtung
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 944
+      description: Betriebsstunden - Reduzierte Luefterstufe
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [10, 14, 25]
+    - id: 946
+      description: Gesamt befoerderte Kubikmeter
+      min: 0
+      max: 600000000
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 956
+      description: Betriebsstunden - Durchgangsventil Sole Fortluft
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices:  [8]
+    - id: 960
+      description: Gesamt befoerderte Luftmenge seit Filterwechsel
+      min: 0
+      max: 600000000
+      divisor: 1
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 962
+      description: Betriebsstunden - Luefterstufe0
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 25]
+    - id: 964
+      description: Betriebsstunden - Beschattung
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
+    - id: 970
+      description: Betriebsstunden - Sole-Kreis Aussenluft
+      min: 0
+      max: 600000000
+      divisor: 60
+      access: R
+      devices: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25]
