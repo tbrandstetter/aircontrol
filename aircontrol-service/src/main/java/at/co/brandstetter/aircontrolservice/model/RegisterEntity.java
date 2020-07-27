@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -26,4 +27,6 @@ public class RegisterEntity implements Serializable {
     private int max;
     @Column(name = "divisor")
     private int divisor;
+    @Column(name = "lastupdate")
+    private LocalDateTime lastupdate;
 }

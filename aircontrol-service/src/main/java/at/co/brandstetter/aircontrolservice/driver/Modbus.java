@@ -17,6 +17,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
@@ -92,6 +93,18 @@ public class Modbus implements SerialPortMessageListener {
         }
     }
 
+    private void reconnect () {
+        logger.info("Trying to reconnect to serial port {}", port);
+
+        this.close();
+        try {
+            Thread.sleep(200);
+        } catch (Exception e) {
+            logger.trace(String.valueOf(e));
+        }
+        this.open();
+    }
+
     public Boolean write(int registerId, RegisterEntity registerEntity) {
         logger.info("Change register value");
 
@@ -103,31 +116,57 @@ public class Modbus implements SerialPortMessageListener {
 
     public Optional<RegisterEntity> read(int registerId) {
 
+        // Aquire Ratelimit
+        rateLimiter.acquire();
+        boolean isFree = rateLimiter.tryAcquire(1, 3, TimeUnit.SECONDS);
+
         // 1. Try to find cached value
         Optional<RegisterEntity> registerValue = registerRepository.findById(registerId);
 
-        logger.info("Read register " + registerId );
+        // Run only on free slot
+        if (isFree) {
 
-        // 2. Nothing found - Get value for register
-        if (registerValue.isEmpty()) {
-            writeSerial(registerId, "x");
+            logger.debug("Serial free: " + isFree);
+
+            // 2. Nothing found - Get value for register
+
+            if (registerValue.isEmpty()) {
+                writeSerial(registerId, "x");
+
+                RetryPolicy<Optional> retryPolicy = new RetryPolicy<Optional>()
+                        .withDelay(Duration.ofSeconds(retrytimeout))
+                        .withMaxRetries(retrycount)
+                        .handleResultIf(result -> {
+                            logger.trace("Retry register read...");
+                            return !result.isPresent();
+                        });
+
+                registerValue = Failsafe.with(retryPolicy).get(() -> registerRepository.findById(registerId));
+
+                logger.info("Read register id " + registerId + " from serial with value " + registerValue );
+
+            } else {
+
+                logger.info("Read register id " + registerId + " from cache with value " + registerValue );
+
+                // Check for last update of value
+                LocalDateTime lastupdate = registerValue.get().getLastupdate();
+                LocalDateTime now = LocalDateTime.now();
+                Duration duration = Duration.between(now, lastupdate);
+                long diff = Math.abs(duration.toMinutes());
+
+                if (diff > 240) {
+                    //logger.trace("Serial connection seems to be broken");
+                    //this.reconnect();
+                    logger.info("Renew value of register " + registerId);
+                    writeSerial(registerId, "x");
+                }
+            }
+
         }
 
-        // 3. Re-Read value
-        RetryPolicy<Optional> retryPolicy = new RetryPolicy<Optional>()
-                .withDelay(Duration.ofSeconds(retrytimeout))
-                .withMaxRetries(retrycount)
-                .handleResultIf(result -> {
-                    logger.trace("Retry register read...");
-                    return !result.isPresent();
-                });
-
-        registerValue = Failsafe.with(retryPolicy).get(() -> registerRepository.findById(registerId));
-
-        logger.trace(String.valueOf(registerValue));
+       //logger.trace(String.valueOf(registerValue));
         return registerValue;
-
-
     }
 
     public RegisterConfiguration.Register search(Integer registerId) {
@@ -143,48 +182,33 @@ public class Modbus implements SerialPortMessageListener {
 
     private boolean writeSerial(int registerId, String registerValue) {
 
-        // Aquire Ratelimit
-        rateLimiter.acquire();
-        boolean isFree = rateLimiter.tryAcquire(1, 3, TimeUnit.SECONDS);
+        try {
+            /* Write for reading
+               <D&W Device ID><Space><RegisterId+1> */
+            String mValue = "130 " + (registerId + 1) + "\r\n";
 
-        logger.debug("Serial free: " + isFree);
-
-        if (serial.isOpen() && isFree) {
-            try {
-                /* Write for reading
-                   <D&W Device ID><Space><RegisterId+1> */
-                String mValue = "130 " + (registerId + 1) + "\r\n";
-
-                /* Write for writing
-                   <D&W Device ID><Space><RegisterId><Space><Value><CR><LF> */
-                if (registerValue != "x") {
-                    logger.info("Writing register: " + registerId + " Value: " + registerValue);
-                    mValue = "130 " + registerId + " " + registerValue + "\r\n";
-                    // ToDo - Workaround/Bug?
-                    outs.write(mValue.getBytes(StandardCharsets.US_ASCII));
-                }
-
+            /* Write for writing
+               <D&W Device ID><Space><RegisterId><Space><Value><CR><LF> */
+            if (registerValue != "x") {
+                logger.info("Writing register: " + registerId + " Value: " + registerValue);
+                mValue = "130 " + registerId + " " + registerValue + "\r\n";
+                // ToDo - Workaround/Bug?
                 outs.write(mValue.getBytes(StandardCharsets.US_ASCII));
-                outs.flush();
-
-                logger.debug("Write to serial port successful");
-                return true;
-
-            } catch (IOException e) {
-                logger.error("Error writing to serial port");
-                try {
-                    this.close();
-                    Thread.sleep(200);
-                    this.open();
-                } catch (Exception ex) {
-                    logger.trace(String.valueOf(ex));
-                }
-
             }
+
+            outs.write(mValue.getBytes(StandardCharsets.US_ASCII));
+            outs.flush();
+
+            logger.debug("Write to serial port successful");
+            return true;
+
+        } catch (IOException e) {
+            logger.error("Error writing to serial port");
+
+            this.reconnect();
         }
 
         return false;
-
     }
 
     @Override
@@ -199,34 +223,30 @@ public class Modbus implements SerialPortMessageListener {
     @Override
     public void serialEvent(SerialPortEvent event) {
         logger.trace("Event happen " + event.getEventType());
+        logger.debug("Data available");
 
-        if (event.getEventType() == SerialPort.LISTENING_EVENT_DATA_RECEIVED) {
+        byte[] newData = event.getReceivedData();
+        String s = new String(newData, StandardCharsets.UTF_8);
+        StringTokenizer st = new StringTokenizer(s, " ");
 
-            logger.debug("Data available");
+        // data from serial
+        int device = Integer.parseInt(st.nextToken());
+        int registerId = Integer.parseInt(st.nextToken());
+        String registerValue = st.nextToken();
+        registerValue = registerValue.replaceAll("(\\r|\\n)", "");
 
-            byte[] newData = event.getReceivedData();
-            String s = new String(newData, StandardCharsets.UTF_8);
-            StringTokenizer st = new StringTokenizer(s, " ");
+        // Correct register
+        if (search(registerId) == null ) {
+            registerId = (registerId -1);
+        };
 
-            // data from serial
-            int device = Integer.parseInt(st.nextToken());
-            int registerId = Integer.parseInt(st.nextToken());
-            String registerValue = st.nextToken();
-            registerValue = registerValue.replaceAll("(\\r|\\n)", "");
+        // Update register
+        RegisterEntity registerEntity = new RegisterEntity();
+        registerEntity.setRegister(registerId);
+        registerEntity.setValue(registerValue);
+        registerEntity.setLastupdate(LocalDateTime.now());
+        registerRepository.save(registerEntity);
 
-            // Correct register
-            if (search(registerId) == null ) {
-                registerId = (registerId -1);
-            };
-
-            // Update register
-            RegisterEntity registerEntity = new RegisterEntity();
-            registerEntity.setRegister(registerId);
-            registerEntity.setValue(registerValue);
-            registerRepository.save(registerEntity);
-
-            logger.info("Device: " +  device + " " + "Register: " + (registerId) + " " + "Value: " + registerValue);
-        }
+        logger.info("Device: " +  device + " " + "Register: " + (registerId) + " " + "Value: " + registerValue);
     }
-
 }
