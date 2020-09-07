@@ -39,6 +39,9 @@ public class Modbus implements SerialPortMessageListener {
     @Value("${modbus.retrytimeout}")
     private int retrytimeout;
 
+    @Value("${modbus.updaterange}")
+    private int updaterange;
+
     private boolean tryOpen = false;
     private boolean tryClose = false;
 
@@ -155,7 +158,7 @@ public class Modbus implements SerialPortMessageListener {
                 Duration duration = Duration.between(now, lastupdate);
                 long diff = Math.abs(duration.toMinutes());
 
-                if (diff > 240) {
+                if (diff > updaterange) {
                     //logger.trace("Serial connection seems to be broken");
                     //this.reconnect();
                     logger.info("Renew value of register " + registerId);
