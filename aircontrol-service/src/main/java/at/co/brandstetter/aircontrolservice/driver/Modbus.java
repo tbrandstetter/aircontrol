@@ -65,8 +65,9 @@ public class Modbus implements SerialPortMessageListener {
 
             serial = SerialPort.getCommPort(port);
             serial.setBaudRate(baudrate);
-            serial.setNumStopBits(1);
+            serial.setNumStopBits(SerialPort.ONE_STOP_BIT);
             serial.setNumDataBits(8);
+            serial.setParity(SerialPort.NO_PARITY);
 
             if (!serial.openPort()) {
                 logger.error("Unable to connect to serial port {}", port);
@@ -112,9 +113,7 @@ public class Modbus implements SerialPortMessageListener {
         logger.info("Change register value");
 
         // Write new register value to device
-        boolean writeStatus = writeSerial(registerId, registerEntity.getValue());
-
-        return writeStatus;
+        return writeSerial(registerId, registerEntity.getValue());
     }
 
     public Optional<RegisterEntity> read(int registerId) {
@@ -129,7 +128,7 @@ public class Modbus implements SerialPortMessageListener {
         // Run only on free slot
         if (isFree) {
 
-            logger.debug("Serial free: " + isFree);
+            logger.debug("Serial free");
 
             // 2. Nothing found - Get value for register
 
@@ -141,7 +140,7 @@ public class Modbus implements SerialPortMessageListener {
                         .withMaxRetries(retrycount)
                         .handleResultIf(result -> {
                             logger.trace("Retry register read...");
-                            return !result.isPresent();
+                            return result.isEmpty();
                         });
 
                 registerValue = Failsafe.with(retryPolicy).get(() -> registerRepository.findById(registerId));
@@ -174,12 +173,10 @@ public class Modbus implements SerialPortMessageListener {
 
     public RegisterConfiguration.Register search(Integer registerId) {
 
-        RegisterConfiguration.Register registerEntry = registerConfiguration.getRegister().stream()
+        return registerConfiguration.getRegister().stream()
                 .filter(register -> register.getId().equals(registerId))
                 .findAny()
                 .orElse(null);
-
-        return registerEntry;
 
     }
 
@@ -189,17 +186,20 @@ public class Modbus implements SerialPortMessageListener {
             /* Write for reading
                <D&W Device ID><Space><RegisterId+1> */
             String mValue = "130 " + (registerId + 1) + "\r\n";
+            logger.debug("Write string: " + mValue);
+
 
             /* Write for writing
                <D&W Device ID><Space><RegisterId><Space><Value><CR><LF> */
-            if (registerValue != "x") {
+            if (!registerValue.equals("x")) {
                 logger.info("Writing register: " + registerId + " Value: " + registerValue);
                 mValue = "130 " + registerId + " " + registerValue + "\r\n";
                 // ToDo - Workaround/Bug?
                 outs.write(mValue.getBytes(StandardCharsets.US_ASCII));
             }
 
-            outs.write(mValue.getBytes(StandardCharsets.US_ASCII));
+            outs.writeBytes(mValue);
+            //outs.write(mValue.getBytes(StandardCharsets.US_ASCII));
             outs.flush();
 
             logger.debug("Write to serial port successful");
@@ -207,7 +207,6 @@ public class Modbus implements SerialPortMessageListener {
 
         } catch (IOException e) {
             logger.error("Error writing to serial port");
-
             this.reconnect();
         }
 
@@ -225,23 +224,25 @@ public class Modbus implements SerialPortMessageListener {
 
     @Override
     public void serialEvent(SerialPortEvent event) {
-        logger.trace("Event happen " + event.getEventType());
-        logger.debug("Data available");
+        logger.trace("Event happen: " + event.getEventType());
 
         byte[] newData = event.getReceivedData();
+
         String s = new String(newData, StandardCharsets.UTF_8);
+        logger.debug("Data available: " + s);
+
         StringTokenizer st = new StringTokenizer(s, " ");
 
         // data from serial
         int device = Integer.parseInt(st.nextToken());
         int registerId = Integer.parseInt(st.nextToken());
         String registerValue = st.nextToken();
-        registerValue = registerValue.replaceAll("(\\r|\\n)", "");
+        registerValue = registerValue.replaceAll("([\r\n])", "");
 
         // Correct register
         if (search(registerId) == null ) {
             registerId = (registerId -1);
-        };
+        }
 
         // Update register
         RegisterEntity registerEntity = new RegisterEntity();

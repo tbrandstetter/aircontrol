@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Client specific files ###
+.DS_Store
