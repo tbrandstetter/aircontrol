@@ -70,7 +70,7 @@ public class RegisterService implements RegisterServiceInterface {
 
     private Boolean validateRegister(int id) throws NoSuchElementException {
 
-        String device = this.getDeviceId();
+        String device = modbus.getDeviceId();
 
         List<String> supportedDevices = modbus.search(id).getDevices();
 
@@ -80,22 +80,6 @@ public class RegisterService implements RegisterServiceInterface {
         };
 
         return false;
-    }
-
-    private String getDeviceId() {
-
-        String deviceId = "0";
-
-        // Find cached value or read it from serial
-        Optional <RegisterEntity> optionalRegister = registerRepository.findById(5000).or(() -> modbus.read(5000));
-
-        if (optionalRegister.isPresent()) {
-            RegisterEntity registerEntity = optionalRegister.get();
-            deviceId = registerEntity.getValue();
-        }
-
-        return deviceId;
-
     }
 
 }

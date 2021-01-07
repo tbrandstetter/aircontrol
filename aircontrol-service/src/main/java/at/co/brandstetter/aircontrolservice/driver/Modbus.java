@@ -58,6 +58,7 @@ public class Modbus implements SerialPortMessageListener {
     }
 
     public void open() {
+        String deviceId = "";
 
         if (!tryOpen) {
 
@@ -75,7 +76,15 @@ public class Modbus implements SerialPortMessageListener {
                 serial.addDataListener(this);
                 outs = new DataOutputStream(serial.getOutputStream());
                 logger.info("Connected to serial port {}", port);
+
+                // Get device type
+                while (deviceId.isEmpty() || deviceId == "0") {
+                    deviceId = this.getDeviceId();
+                    logger.trace("Polling device id....");
+                }
+                logger.info("Got device id: " + deviceId);
             }
+
             tryOpen = false;
         }
 
@@ -107,6 +116,22 @@ public class Modbus implements SerialPortMessageListener {
             logger.trace(String.valueOf(e));
         }
         this.open();
+    }
+
+    public String getDeviceId() {
+
+        String deviceId = "0";
+
+        // Find cached value or read it from serial
+        Optional <RegisterEntity> optionalRegister = registerRepository.findById(5000).or(() -> this.read(5000));
+
+        if (optionalRegister.isPresent()) {
+            RegisterEntity registerEntity = optionalRegister.get();
+            deviceId = registerEntity.getValue();
+        }
+
+        return deviceId;
+
     }
 
     public Boolean write(int registerId, RegisterEntity registerEntity) {
@@ -158,8 +183,6 @@ public class Modbus implements SerialPortMessageListener {
                 long diff = Math.abs(duration.toMinutes());
 
                 if (diff > updaterange) {
-                    //logger.trace("Serial connection seems to be broken");
-                    //this.reconnect();
                     logger.info("Renew value of register " + registerId);
                     writeSerial(registerId, "x");
                 }
@@ -167,7 +190,6 @@ public class Modbus implements SerialPortMessageListener {
 
         }
 
-       //logger.trace(String.valueOf(registerValue));
         return registerValue;
     }
 
