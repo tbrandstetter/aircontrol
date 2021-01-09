@@ -42,6 +42,12 @@ public class Modbus implements SerialPortMessageListener {
     @Value("${modbus.updaterange}")
     private int updaterange;
 
+    @Value("${duw.deviceregognition}")
+    private boolean deviceregognition;
+
+    @Value("${duw.devicetype}")
+    private String devicetype;
+
     private boolean tryOpen = false;
     private boolean tryClose = false;
 
@@ -78,7 +84,7 @@ public class Modbus implements SerialPortMessageListener {
                 logger.info("Connected to serial port {}", port);
 
                 // Get device type
-                while (deviceId.isEmpty() || deviceId == "0") {
+                while (deviceId.isEmpty() || deviceId.equals("0")) {
                     deviceId = this.getDeviceId();
                     logger.trace("Polling device id....");
                 }
@@ -119,15 +125,20 @@ public class Modbus implements SerialPortMessageListener {
     }
 
     public String getDeviceId() {
-
         String deviceId = "0";
 
-        // Find cached value or read it from serial
-        Optional <RegisterEntity> optionalRegister = registerRepository.findById(5000).or(() -> this.read(5000));
+        if (deviceregognition) {
 
-        if (optionalRegister.isPresent()) {
-            RegisterEntity registerEntity = optionalRegister.get();
-            deviceId = registerEntity.getValue();
+            // Find cached value or read it from serial
+            Optional<RegisterEntity> optionalRegister = registerRepository.findById(5000).or(() -> this.read(5000));
+
+            if (optionalRegister.isPresent()) {
+                RegisterEntity registerEntity = optionalRegister.get();
+                deviceId = registerEntity.getValue();
+            }
+        } else {
+            logger.debug("Device regognition disabled. Use device type: " + devicetype);
+            deviceId = devicetype;
         }
 
         return deviceId;
