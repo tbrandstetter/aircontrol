@@ -98,7 +98,7 @@ You only have to change the modbus.port!
 Register id's an`d description can be found in this [PDF](http://filter.drexel-weiss.at/HP/Upload/Dateien/900.6667_00_TI_Modbus_Parameter_V4.01_DE.pdf).
 
 #### Use Swagger
-``http://"ip of your system":8080/swagger-ui.html``
+``http://"ip of your system":8080/swagger-ui/index.html``
 
 #### Get register value by id
 ``GET http://"ip of your system":8080/api/v1/registers/"id"``

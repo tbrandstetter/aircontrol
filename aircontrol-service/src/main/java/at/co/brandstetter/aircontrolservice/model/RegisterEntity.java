@@ -17,7 +17,7 @@ public class RegisterEntity implements Serializable {
     @Id
     @Column(name = "register")
     private int register;
-    @Column(name = "value")
+    @Column(name = "data")
     private String value;
     @Column(name = "description")
     private String description;
@@ -27,6 +27,6 @@ public class RegisterEntity implements Serializable {
     private int max;
     @Column(name = "divisor")
     private int divisor;
-    @Column(name = "lastupdate")
+    @Column(name = "updated")
     private LocalDateTime lastupdate;
 }
