@@ -5,7 +5,8 @@ The Aircontrol service allows you to monitor and manage Drexel & Weiss home vent
 
 ## Changelog
 0.1 Initial release
-0.4 Update dependencies - remove gui for now
+
+0.5 Update dependencies - remove gui for now
 
 ## Supported Devices
 
