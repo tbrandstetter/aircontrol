@@ -1,10 +1,12 @@
 # Getting Started
-The aircontrol service allows you to monitor and manage Drexel & Weiss home ventilation systems via REST (GUI comes in a later version). Aircontrol uses the USB service interface of the Drexel & Weiss devices in debug mode, so you don't need the additional modbus adapter. A list of registers can be found on the Drexel & Weiss [homepage](http://filter.drexel-weiss.at/HP/Upload/Dateien/900.6667_00_TI_Modbus_Parameter_V4.01_DE.pdf).
+The Aircontrol service allows you to monitor and manage Drexel & Weiss home ventilation systems via REST (GUI comes in a later version). Aircontrol uses the USB service interface of the Drexel & Weiss devices in debug mode, so you don't need the additional modbus adapter. A list of registers can be found on the Drexel & Weiss [homepage](http://filter.drexel-weiss.at/HP/Upload/Dateien/900.6667_00_TI_Modbus_Parameter_V4.01_DE.pdf).
 
 **Important: The service has been tested on my own ventilation system (Silent Stratos) but it should be clear that the Drexel & Weiss warranty doesn't cover damages for this case of usage. Use it at your own responsibility!**
 
 ## Changelog
 0.1 Initial release
+
+0.5 Update dependencies - remove gui for now
 
 ## Supported Devices
 
@@ -35,16 +37,16 @@ Additionally you have to set the "Serial Interface Operation Mode" to "Debug".
 
 ``mvn clean``
 
-``mvn package``
+``mvn package -DskipTests``
 
 ## Installation
-Copy binary (in aircontrol-service/target/)
+Copy binary (in aircontrol/target/)
 
-``cp aircontrol-service-0.0.1-SNAPSHOT.jar /usr/local/sbin/aircontrol-0.0.1.jar``
+``cp aircontrol-service-0.0.5-SNAPSHOT.jar /usr/local/sbin/aircontrol-0.0.5.jar``
 
 #### Create Symlink:
 
-``ln -s /usr/local/sbin/aircontrol-service-0.0.1-SNAPSHOT.jar /usr/local/sbin/aircontrol.jar``
+``ln -s /usr/local/sbin/aircontrol-service-0.0.5-SNAPSHOT.jar /usr/local/sbin/aircontrol.jar``
 
 #### Create service file:
 ``vi aircontrol.service``
@@ -98,7 +100,7 @@ You only have to change the modbus.port!
 Register id's an`d description can be found in this [PDF](http://filter.drexel-weiss.at/HP/Upload/Dateien/900.6667_00_TI_Modbus_Parameter_V4.01_DE.pdf).
 
 #### Use Swagger
-``http://"ip of your system":8080/swagger-ui.html``
+``http://"ip of your system":8080/swagger-ui/index.html``
 
 #### Get register value by id
 ``GET http://"ip of your system":8080/api/v1/registers/"id"``
