@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("UnstableApiUsage")
 public class Modbus implements SerialPortMessageListener {
 
     private final RegisterRepository registerRepository;
@@ -154,7 +155,7 @@ public class Modbus implements SerialPortMessageListener {
 
     public Optional<RegisterEntity> read(int registerId) {
 
-        // Aquire Ratelimit
+        // Acquire Rate limit
         rateLimiter.acquire();
         boolean isFree = rateLimiter.tryAcquire(1, 3, TimeUnit.SECONDS);
 
@@ -176,6 +177,7 @@ public class Modbus implements SerialPortMessageListener {
                         .withMaxRetries(retrycount)
                         .handleResultIf(result -> {
                             logger.trace("Retry register read...");
+
                             return result.isEmpty();
                         });
 
