@@ -1,4 +1,4 @@
-FROM amazoncorretto:18.0.1
+FROM amazoncorretto:21
 ARG JAR_FILE=target/aircontrol*.jar
 
 RUN yum update -y --security \

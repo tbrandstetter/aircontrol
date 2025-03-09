@@ -8,6 +8,11 @@ The Aircontrol service allows you to monitor and manage Drexel & Weiss home vent
 
 0.5 Update dependencies - remove gui for now
 
+0.6 Renovatebot updates - switch to Java 17
+
+0.7 Updated dependencies - switch to Java 22
+    Fixed retry logic in modbus driver
+    
 ## Supported Devices
 
 - Aerosilent Bianco
@@ -42,11 +47,11 @@ Additionally you have to set the "Serial Interface Operation Mode" to "Debug".
 ## Installation
 Copy binary (in aircontrol/target/)
 
-``cp aircontrol-service-0.0.5-SNAPSHOT.jar /usr/local/sbin/aircontrol-0.0.5.jar``
+``cp aircontrol-service-0.0.6-SNAPSHOT.jar /usr/local/sbin/aircontrol-0.0.6.jar``
 
 #### Create Symlink:
 
-``ln -s /usr/local/sbin/aircontrol-service-0.0.5-SNAPSHOT.jar /usr/local/sbin/aircontrol.jar``
+``ln -s /usr/local/sbin/aircontrol-service-0.0.6-SNAPSHOT.jar /usr/local/sbin/aircontrol.jar``
 
 #### Create service file:
 ``vi aircontrol.service``

@@ -89,7 +89,7 @@ public class Modbus implements SerialPortMessageListener {
                     deviceId = this.getDeviceId();
                     logger.trace("Polling device id....");
                 }
-                logger.info("Got device id: " + deviceId);
+                logger.info("Got device id: {}", deviceId);
             }
 
             tryOpen = false;
@@ -138,7 +138,7 @@ public class Modbus implements SerialPortMessageListener {
                 deviceId = registerEntity.getValue();
             }
         } else {
-            logger.debug("Device regognition disabled. Use device type: " + devicetype);
+            logger.debug("Device regognition disabled. Use device type: {}", devicetype);
             deviceId = devicetype;
         }
 
@@ -172,22 +172,22 @@ public class Modbus implements SerialPortMessageListener {
             if (registerValue.isEmpty()) {
                 writeSerial(registerId, "x");
 
-                RetryPolicy<Optional> retryPolicy = new RetryPolicy<Optional>()
+                RetryPolicy<Object> retryPolicy = new RetryPolicy<>()
                         .withDelay(Duration.ofSeconds(retrytimeout))
                         .withMaxRetries(retrycount)
                         .handleResultIf(result -> {
                             logger.trace("Retry register read...");
 
-                            return result.isEmpty();
+                            return result == null;
                         });
 
                 registerValue = Failsafe.with(retryPolicy).get(() -> registerRepository.findById(registerId));
 
-                logger.info("Read register id " + registerId + " from serial with value " + registerValue );
+                logger.info("Read register id {} from serial with value {}", registerId, registerValue);
 
             } else {
 
-                logger.info("Read register id " + registerId + " from cache with value " + registerValue );
+                logger.info("Read register id {} from cache with value {}", registerId, registerValue);
 
                 // Check for last update of value
                 LocalDateTime lastupdate = registerValue.get().getLastupdate();
@@ -196,7 +196,7 @@ public class Modbus implements SerialPortMessageListener {
                 long diff = Math.abs(duration.toMinutes());
 
                 if (diff > updaterange) {
-                    logger.info("Renew value of register " + registerId);
+                    logger.info("Renew value of register {}", registerId);
                     writeSerial(registerId, "x");
                 }
             }
@@ -221,13 +221,13 @@ public class Modbus implements SerialPortMessageListener {
             /* Write for reading
                <D&W Device ID><Space><RegisterId+1> */
             String mValue = "130 " + (registerId + 1) + "\r\n";
-            logger.debug("Write string: " + mValue);
+            logger.debug("Write string: {}", mValue);
 
 
             /* Write for writing
                <D&W Device ID><Space><RegisterId><Space><Value><CR><LF> */
             if (!registerValue.equals("x")) {
-                logger.info("Writing register: " + registerId + " Value: " + registerValue);
+                logger.info("Writing register: {} Value: {}", registerId, registerValue);
                 mValue = "130 " + registerId + " " + registerValue + "\r\n";
                 // ToDo - Workaround/Bug?
                 //outs.write(mValue.getBytes(StandardCharsets.US_ASCII));
@@ -259,12 +259,12 @@ public class Modbus implements SerialPortMessageListener {
 
     @Override
     public void serialEvent(SerialPortEvent event) {
-        logger.trace("Event happen: " + event.getEventType());
+        logger.trace("Event happen: {}", event.getEventType());
 
         byte[] newData = event.getReceivedData();
 
         String s = new String(newData, StandardCharsets.UTF_8);
-        logger.debug("Data available: " + s);
+        logger.debug("Data available: {}", s);
 
         StringTokenizer st = new StringTokenizer(s, " ");
 
@@ -286,6 +286,6 @@ public class Modbus implements SerialPortMessageListener {
         registerEntity.setLastupdate(LocalDateTime.now());
         registerRepository.save(registerEntity);
 
-        logger.info("Device: " +  device + " " + "Register: " + (registerId) + " " + "Value: " + registerValue);
+        logger.info("Device: {} Register: {} Value: {}", device, registerId, registerValue);
     }
 }

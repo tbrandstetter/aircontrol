@@ -35,9 +35,7 @@ public class RegisterService implements RegisterServiceInterface {
 
             register = modbus.read(registerId);
 
-            if (register.isPresent()) {
-                this.extendRegister(register.get());
-            }
+            register.ifPresent(this::extendRegister);
         }
 
         return register;
@@ -75,11 +73,7 @@ public class RegisterService implements RegisterServiceInterface {
         List<String> supportedDevices = modbus.search(id).getDevices();
 
         // Device supported for this register?
-        if (supportedDevices.contains(device)) {
-            return true;
-        };
-
-        return false;
+        return supportedDevices.contains(device);
     }
 
 }

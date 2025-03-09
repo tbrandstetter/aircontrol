@@ -29,9 +29,6 @@ public class APIController {
 
     @PutMapping("/registers/{registerId}")
     public boolean write(@PathVariable int registerId, @RequestBody RegisterEntity registerEntity) {
-        if (registerServiceInterface.writeRegister(registerId, registerEntity)) {
-            return true;
-        }
-        return false;
+        return registerServiceInterface.writeRegister(registerId, registerEntity);
     }
 }
