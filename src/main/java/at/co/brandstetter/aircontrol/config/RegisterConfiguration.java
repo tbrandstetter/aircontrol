@@ -15,6 +15,8 @@ import java.util.List;
 public class RegisterConfiguration {
 
     private List<Register> register;
+    private boolean deviceregognition;
+    private String devicetype;
 
     @Data
     @Cacheable("register")

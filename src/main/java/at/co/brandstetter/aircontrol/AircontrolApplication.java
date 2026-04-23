@@ -1,18 +1,19 @@
 package at.co.brandstetter.aircontrol;
 
-import at.co.brandstetter.aircontrol.driver.Modbus;
+import at.co.brandstetter.aircontrol.driver.ConnectionSupervisor;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationListener;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
-import javax.annotation.Nonnull;
 
 @SpringBootApplication
-@EnableCaching
+@ConfigurationPropertiesScan
+@EnableScheduling
 public class AircontrolApplication {
 
     public static void main(String[] args) {
@@ -25,18 +26,18 @@ public class AircontrolApplication {
 class MyApplicationListener
         implements ApplicationListener<ApplicationReadyEvent> {
 
-    private final Modbus modbus;
+    private final ConnectionSupervisor connectionSupervisor;
 
     Logger logger = (Logger) LoggerFactory.getLogger(MyApplicationListener.class);
 
-    MyApplicationListener(Modbus modbus) {
-        this.modbus = modbus;
+    MyApplicationListener(ConnectionSupervisor connectionSupervisor) {
+        this.connectionSupervisor = connectionSupervisor;
     }
 
     @Override
-    public void onApplicationEvent(@Nonnull ApplicationReadyEvent event) {
+    public void onApplicationEvent(ApplicationReadyEvent event) {
 
-        modbus.open();
+        connectionSupervisor.start();
 
         logger.info("Starting communication with Drexel & Weiss device");
 
