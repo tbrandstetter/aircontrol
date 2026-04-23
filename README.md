@@ -7,7 +7,7 @@ Aircontrol monitors and controls Drexel & Weiss ventilation systems over the ser
 ## Current state
 
 - Java 21
-- Spring Boot 3.4.x
+- Spring Boot 3.5.x
 - Cache-first register reads with background refresh
 - Connection status endpoint and stale/reconnect detection
 - Designed for trusted private LAN deployments
