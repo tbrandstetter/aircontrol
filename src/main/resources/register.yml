@@ -29,20 +29,6 @@ duw:
       divisor: 1
       access: R
       devices: [4, 5, 6, 7, 10, 14]
-    - id: 1040
-      description: Grobstaubfilter wechseln!
-      min: 0
-      max: 127
-      divisor: 1
-      access: R
-      devices: [25]
-    - id: 1042
-      description: Feinstaubfilter wechseln!
-      min: 0
-      max: 127
-      divisor: 1
-      access: R
-      devices: [25]
     - id: 1044
       description: Waermepumpe
       min: 0
@@ -175,7 +161,7 @@ duw:
       max: 1
       divisor: 1
       access: R
-      devices: [8, 17, 25]
+      devices: [1, 8, 17, 25]
     - id: 1218
       description: Beschattung
       min: 0
@@ -1141,7 +1127,7 @@ duw:
       max: 230
       divisor: 1
       access: R/W
-      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25(max600]
+      devices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 25(max600)]
     - id: 5068
       description: Brandmeldeanlage vorhanden?
       min: 0
@@ -1155,14 +1141,14 @@ duw:
       max: 20000
       divisor: 1000
       access: R/W
-      devices: [8, 17, 25]
+      devices: [1, 8, 17, 25]
     - id: 5086
       description: Temperatur Aussenluft - Bypass schliessen
       min: 10000
       max: 20000
       divisor: 1000
       access: R/W
-      devices: [8, 17, 25]
+      devices: [1, 8, 17, 25]
     - id: 5088
       description: Temperatur Aussenluft - Frostschutz ein
       min: -10000
@@ -1505,14 +1491,14 @@ duw:
       max: 35000
       divisor: 1000
       access: R/W
-      devices: [8, 17, 25]
+      devices: [1, 8, 17, 25]
     - id: 5452
       description: Temperatur - Bypass Kuehlung Aus (Bypass oeffnen)
       min: 20000
       max: 35000
       divisor: 1000
       access: R/W
-      devices: [8, 17, 25]
+      devices: [1, 8, 17, 25]
     - id: 5486
       description: Mindestluftmenge
       min: 40
@@ -1869,7 +1855,7 @@ duw:
       max: 600000000
       divisor: 60
       access: R
-      devices: [8, 17, 25]
+      devices: [1, 8, 17, 25]
     - id: 934
       description: Betriebsstunden - Sole-Kreis
       min: 0
