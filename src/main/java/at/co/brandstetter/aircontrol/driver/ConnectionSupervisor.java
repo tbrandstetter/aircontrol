@@ -60,6 +60,7 @@ public class ConnectionSupervisor implements ModbusDataListener {
     }
 
     public void start() {
+        logger.info("Starting Modbus connection supervisor");
         attemptOpen("startup");
     }
 
@@ -67,6 +68,7 @@ public class ConnectionSupervisor implements ModbusDataListener {
     public void maintainConnection() {
         ConnectionState currentState = state.get();
         if (currentState == ConnectionState.CONNECTED && isStale()) {
+            logger.warn("No fresh Modbus data for {}, marking connection stale", properties.getStaleTimeout());
             state.set(ConnectionState.STALE);
             currentState = ConnectionState.STALE;
         }
@@ -84,6 +86,8 @@ public class ConnectionSupervisor implements ModbusDataListener {
             return;
         }
 
+        logger.debug("Queueing background refresh for register {}", registerId);
+
         readExecutor.submit(() -> {
             try {
                 if (ensureOpenForRequest()) {
@@ -99,11 +103,13 @@ public class ConnectionSupervisor implements ModbusDataListener {
 
     public boolean writeRegister(int registerId, String value) {
         if (state.get() != ConnectionState.CONNECTED) {
+            logger.warn("Rejecting write for register {} because connection state is {}", registerId, state.get());
             return false;
         }
 
         try {
             client.writeRegister(registerId, value);
+            logger.info("Write command queued for register {}", registerId);
             return true;
         } catch (IOException e) {
             markFailure(e);
@@ -120,18 +126,24 @@ public class ConnectionSupervisor implements ModbusDataListener {
             entity.setLastupdate(LocalDateTime.now());
             registerRepository.save(entity);
 
+            if (state.get() != ConnectionState.CONNECTED) {
+                logger.info("Modbus connection established");
+            }
             lastDataAt = Instant.now();
             state.set(ConnectionState.CONNECTED);
             lastError = null;
+            logger.debug("Updated register {} with value {}", frame.register(), frame.value());
 
             if (frame.register() == DEVICE_ID_REGISTER) {
                 deviceId = frame.value();
+                logger.info("Detected device id {}", deviceId);
             }
         });
     }
 
     @Override
     public void onDisconnect() {
+        logger.warn("Modbus connection lost");
         state.set(ConnectionState.DISCONNECTED);
         lastError = "Serial port disconnected";
         client.close();
@@ -167,9 +179,12 @@ public class ConnectionSupervisor implements ModbusDataListener {
         try {
             ConnectionState openingState = reconnectAttempts == 0 ? ConnectionState.STARTING : ConnectionState.RECONNECTING;
             state.set(openingState);
+            logger.info("Opening Modbus connection on {} ({})", properties.getPort(), reason);
             client.open(this);
             state.set(lastDataAt == null ? ConnectionState.STALE : ConnectionState.CONNECTED);
             lastError = null;
+            reconnectAttempts = 0;
+            logger.info("Modbus port {} is open", properties.getPort());
 
             if (!registerConfiguration.isDeviceregognition()) {
                 deviceId = registerConfiguration.getDevicetype();
@@ -180,7 +195,7 @@ public class ConnectionSupervisor implements ModbusDataListener {
             reconnectAttempts++;
             lastError = e.getMessage();
             state.set(ConnectionState.DISCONNECTED);
-            logger.debug("Unable to open Modbus connection during {}: {}", reason, e.getMessage());
+            logger.warn("Unable to open Modbus connection during {}: {}", reason, e.getMessage());
         } finally {
             opening.set(false);
         }
@@ -203,6 +218,7 @@ public class ConnectionSupervisor implements ModbusDataListener {
         reconnectAttempts++;
         lastError = e.getMessage();
         state.set(ConnectionState.DISCONNECTED);
+        logger.warn("Modbus I/O failure: {}", e.getMessage());
         client.close();
     }
 

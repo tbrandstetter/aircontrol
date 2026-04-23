@@ -1,7 +1,6 @@
 package at.co.brandstetter.aircontrol.controller;
 
 import at.co.brandstetter.aircontrol.controller.dto.RegisterValueResponse;
-import at.co.brandstetter.aircontrol.controller.dto.RegisterWriteResponse;
 import at.co.brandstetter.aircontrol.driver.ConnectionSnapshot;
 import at.co.brandstetter.aircontrol.driver.ConnectionSupervisor;
 import at.co.brandstetter.aircontrol.model.RegisterEntity;
@@ -51,12 +50,12 @@ public class APIController {
     }
 
     @PutMapping("/registers/{registerId}")
-    public ResponseEntity<RegisterWriteResponse> write(
+    public ResponseEntity<Boolean> write(
             @PathVariable int registerId,
             @RequestBody RegisterEntity registerEntity
     ) {
-        RegisterWriteResponse response = registerServiceInterface.writeRegister(registerId, registerEntity);
+        var response = registerServiceInterface.writeRegister(registerId, registerEntity);
         HttpStatus status = response.accepted() ? HttpStatus.OK : HttpStatus.CONFLICT;
-        return ResponseEntity.status(status).body(response);
+        return ResponseEntity.status(status).body(response.accepted());
     }
 }

@@ -5,6 +5,8 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortMessageListener;
 import jakarta.annotation.PreDestroy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.DataOutputStream;
@@ -13,6 +15,10 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class JSerialCommModbusClient implements ModbusClient, SerialPortMessageListener {
+    static final int DEVICE_ADDRESS = 130;
+
+    private static final Logger logger = LoggerFactory.getLogger(JSerialCommModbusClient.class);
+
     private final ModbusProperties properties;
     private SerialPort serial;
     private DataOutputStream outs;
@@ -40,6 +46,7 @@ public class JSerialCommModbusClient implements ModbusClient, SerialPortMessageL
 
             serial.addDataListener(this);
             outs = new DataOutputStream(serial.getOutputStream());
+            logger.info("Connected to serial port {}", properties.getPort());
         } catch (RuntimeException e) {
             close();
             throw new IOException("Unable to create serial port " + properties.getPort(), e);
@@ -53,6 +60,7 @@ public class JSerialCommModbusClient implements ModbusClient, SerialPortMessageL
             try {
                 serial.removeDataListener();
                 serial.closePort();
+                logger.info("Disconnected serial port {}", properties.getPort());
             } finally {
                 serial = null;
                 outs = null;
@@ -67,12 +75,16 @@ public class JSerialCommModbusClient implements ModbusClient, SerialPortMessageL
 
     @Override
     public void requestRegister(int registerId) throws IOException {
-        writeLine("130 " + (registerId + 1) + "\r\n");
+        String line = buildReadCommand(registerId);
+        logger.debug("Requesting register {} with payload {}", registerId, escapeForLog(line));
+        writeLine(line);
     }
 
     @Override
     public void writeRegister(int registerId, String value) throws IOException {
-        writeLine("130 " + registerId + " " + value + "\r\n");
+        String line = buildWriteCommand(registerId, value);
+        logger.info("Writing register {} with payload {}", registerId, escapeForLog(line));
+        writeLine(line);
     }
 
     private synchronized void writeLine(String line) throws IOException {
@@ -101,6 +113,7 @@ public class JSerialCommModbusClient implements ModbusClient, SerialPortMessageL
     @Override
     public void serialEvent(SerialPortEvent event) {
         if ((event.getEventType() & SerialPort.LISTENING_EVENT_PORT_DISCONNECTED) != 0) {
+            logger.warn("Serial port {} disconnected", properties.getPort());
             if (listener != null) {
                 listener.onDisconnect();
             }
@@ -108,7 +121,28 @@ public class JSerialCommModbusClient implements ModbusClient, SerialPortMessageL
         }
 
         if ((event.getEventType() & SerialPort.LISTENING_EVENT_DATA_RECEIVED) != 0 && listener != null) {
-            listener.onData(new String(event.getReceivedData(), StandardCharsets.UTF_8));
+            String line = new String(event.getReceivedData(), StandardCharsets.UTF_8);
+            logger.trace("Received serial payload {}", escapeForLog(line));
+            listener.onData(line);
         }
+    }
+
+    static String buildReadCommand(int registerId) {
+        return DEVICE_ADDRESS + " " + (registerId + 1) + "\r\n";
+    }
+
+    static String buildWriteCommand(int registerId, String value) {
+        return DEVICE_ADDRESS + " " + registerId + " " + sanitizeValue(value) + "\r\n";
+    }
+
+    private static String sanitizeValue(String value) {
+        if (value == null) {
+            return "";
+        }
+        return value.strip().replace("\r", "").replace("\n", "");
+    }
+
+    private static String escapeForLog(String line) {
+        return line.replace("\r", "\\r").replace("\n", "\\n");
     }
 }

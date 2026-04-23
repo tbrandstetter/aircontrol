@@ -48,6 +48,15 @@ public class RegisterService implements RegisterServiceInterface {
         }
 
         boolean accepted = connectionSupervisor.writeRegister(registerId, registerEntity.getValue());
+        if (accepted) {
+            RegisterEntity cached = registerRepository.findById(registerId).orElseGet(RegisterEntity::new);
+            cached.setRegister(registerId);
+            cached.setValue(registerEntity.getValue());
+            cached.setLastupdate(LocalDateTime.now());
+            registerRepository.save(cached);
+            connectionSupervisor.requestRead(registerId);
+        }
+
         return new RegisterWriteResponse(
                 registerId,
                 accepted,
