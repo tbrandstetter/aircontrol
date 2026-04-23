@@ -6,10 +6,12 @@ import at.co.brandstetter.aircontrol.driver.ConnectionSupervisor;
 import at.co.brandstetter.aircontrol.service.RegisterServiceInterface;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.Duration;
@@ -24,15 +26,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(APIController.class)
 @Import(at.co.brandstetter.aircontrol.config.WebSecurityConfiguration.class)
+@ImportAutoConfiguration(exclude = UserDetailsServiceAutoConfiguration.class)
 class APIControllerSecurityTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private RegisterServiceInterface registerServiceInterface;
 
-    @MockBean
+    @MockitoBean
     private ConnectionSupervisor connectionSupervisor;
 
     @Test

@@ -1,19 +1,18 @@
-# Getting Started
-The Aircontrol service allows you to monitor and manage Drexel & Weiss home ventilation systems via REST (GUI comes in a later version). Aircontrol uses the USB service interface of the Drexel & Weiss devices in debug mode, so you don't need the additional modbus adapter. A list of registers can be found on the Drexel & Weiss [homepage](http://filter.drexel-weiss.at/HP/Upload/Dateien/900.6667_00_TI_Modbus_Parameter_V4.01_DE.pdf).
+# Aircontrol
 
-**Important: The service has been tested on my own ventilation system (Silent Stratos) but it should be clear that the Drexel & Weiss warranty doesn't cover damages for this case of usage. Use it at your own responsibility!**
+Aircontrol monitors and controls Drexel & Weiss ventilation systems over the service USB interface. It talks to the device in debug mode, exposes a small REST API, keeps recent register values in a local cache, and reconnects automatically if the serial link goes stale or drops.
 
-## Changelog
-0.1 Initial release
+**Important:** This project talks directly to the device's service interface. It is tested on a private installation and is used at your own risk.
 
-0.5 Update dependencies - remove gui for now
+## Current state
 
-0.6 Renovatebot updates - switch to Java 17
+- Java 21
+- Spring Boot 3.4.x
+- Cache-first register reads with background refresh
+- Connection status endpoint and stale/reconnect detection
+- Designed for trusted private LAN deployments
 
-0.7 Updated dependencies - switch to Java 22
-    Fixed retry logic in modbus driver
-    
-## Supported Devices
+## Supported devices
 
 - Aerosilent Bianco
 - Aerosilent Business
@@ -32,89 +31,175 @@ The Aircontrol service allows you to monitor and manage Drexel & Weiss home vent
 - X²
 - X² Plus
 
-## Prerequisite on the device
-For communication between the device and Aircontrol you have to connect an USB-Cable (USB Type B) to the service connector of the device. The location of the service connector can be different from device to device, so please make sure to read the documentation of your device, before you go on.
+## Device prerequisites
 
-Additionally you have to set the "Serial Interface Operation Mode" to "Debug".
+Before using Aircontrol:
+
+1. Connect a USB Type-B cable to the device service connector.
+2. Enable `Debug` for the serial interface operation mode on the device.
+3. Identify the correct serial port on the host, usually `/dev/ttyUSB0`.
+
+The exact connector location depends on the device model, so check the device documentation first.
 
 ## Build
-``git clone https://github.com/tbrandstetter/aircontrol.git``
 
-``mvn clean``
+```bash
+git clone https://github.com/tbrandstetter/aircontrol.git
+cd aircontrol
+./mvnw clean package
+```
 
-``mvn package -DskipTests``
+The packaged application is created in `target/`, for example:
+
+```bash
+target/aircontrol-0.9.0-SNAPSHOT.jar
+```
+
+## Configuration
+
+For production-style deployment, provide configuration outside the jar and override the default local-dev profile.
+
+Example `application.properties`:
+
+```properties
+spring.profiles.active=prod
+
+modbus.baudrate=115200
+modbus.port=/dev/ttyUSB0
+modbus.retrycount=20
+modbus.retrytimeout=3
+modbus.updaterange=240
+modbus.stale-timeout=2m
+modbus.reconnect-delay=5s
+modbus.stale-check-delay=10s
+
+spring.datasource.url=jdbc:h2:file:/var/lib/aircontrol/aircontrol
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.open-in-view=false
+
+duw.deviceregognition=true
+duw.devicetype=17
+```
+
+If you already know your device type and do not want automatic detection, set:
+
+```properties
+duw.deviceregognition=false
+duw.devicetype=17
+```
 
 ## Installation
-Copy binary (in aircontrol/target/)
 
-``cp aircontrol-service-0.0.6-SNAPSHOT.jar /usr/local/sbin/aircontrol-0.0.6.jar``
+Example installation to `/usr/local/sbin`:
 
-#### Create Symlink:
-
-``ln -s /usr/local/sbin/aircontrol-service-0.0.6-SNAPSHOT.jar /usr/local/sbin/aircontrol.jar``
-
-#### Create service file:
-``vi aircontrol.service``
+```bash
+cp target/aircontrol-0.9.0-SNAPSHOT.jar /usr/local/sbin/aircontrol-0.9.0.jar
+ln -sf /usr/local/sbin/aircontrol-0.9.0.jar /usr/local/sbin/aircontrol.jar
 ```
+
+Example `systemd` unit:
+
+```ini
 [Unit]
 Description=Aircontrol
-After=syslog.target
+After=network.target
 
 [Service]
 User=root
-ExecStart=/usr/local/sbin/aircontrol.jar
+ExecStart=/usr/bin/java -jar /usr/local/sbin/aircontrol.jar --spring.config.location=file:/usr/local/sbin/application.properties
 SuccessExitStatus=143
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-#### Copy configuration file to systemd directory
-``cp aircontrol.service /etc/systemd/system/aircontrol.service``
+Then:
 
-``systemctl daemon-reload``
-
-## Configuration
-``vi /usr/local/sbin/application.properties``
+```bash
+cp aircontrol.service /etc/systemd/system/aircontrol.service
+systemctl daemon-reload
+systemctl enable --now aircontrol
 ```
-# Default settings
-spring.profiles.active=prod
 
-# Modbus serial settings
-modbus.baudrate=115200
-modbus.port=/dev/ttyUSB0
-modbus.retrycount=20
-modbus.retrytimeout=3
+## Security model
 
-# Database settings
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=password
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+Aircontrol is currently intended for **trusted private LANs only**.
+
+- The REST API is intentionally open inside that network.
+- `PUT` requests do not require a CSRF token.
+- If you ever expose the service outside a trusted LAN, put authentication in front of it first.
+
+## Monitoring
+
+```bash
+journalctl -u aircontrol -f
 ```
-You only have to change the modbus.port!
 
-### Run
-``systemctl start aircontrol``
+## Register reference
 
-### Monitor
-``journalctl -f ``
+Drexel & Weiss register descriptions can be found in this PDF:
 
-### Use
-Register id's an`d description can be found in this [PDF](http://filter.drexel-weiss.at/HP/Upload/Dateien/900.6667_00_TI_Modbus_Parameter_V4.01_DE.pdf).
+[Modbus parameter list](http://filter.drexel-weiss.at/HP/Upload/Dateien/900.6667_00_TI_Modbus_Parameter_V4.01_DE.pdf)
 
-#### Use Swagger
-``http://"ip of your system":8080/swagger-ui/index.html``
+## REST API
 
-#### Get register value by id
-``GET http://"ip of your system":8080/api/v1/registers/"id"``
+### List cached registers
 
-#### Get all registers
-``GET http://"ip of your system":8080/api/v1/registers``
+```http
+GET /api/v1/registers
+```
 
-#### Write register
-``PUT http://"ip of your system":8080/api/v1/registers/"id"``
+### Read one cached register
 
-Payload in Body: ``{"value" : "value you want to change"}``
+```http
+GET /api/v1/registers/{id}
+```
 
+Returns the cached value if available. If the value is missing or stale, Aircontrol schedules a background refresh instead of blocking the request path.
+
+### Read one register with connection and freshness state
+
+```http
+GET /api/v1/registers/{id}/status
+```
+
+### Read connection state
+
+```http
+GET /api/v1/connection
+```
+
+Example response fields:
+
+- `state`
+- `port`
+- `lastDataAt`
+- `staleTimeout`
+- `reconnectAttempts`
+- `lastError`
+
+### Write a register
+
+```http
+PUT /api/v1/registers/{id}
+Content-Type: application/json
+```
+
+Payload:
+
+```json
+{"value":"3"}
+```
+
+Response:
+
+- `200 OK` with body `true` if the write was accepted
+- `409 Conflict` with body `false` if the connection is not ready or the register is unsupported for the detected device
+
+## Notes
+
+- Swagger UI is not part of the current build.
+- The H2 console is only intended for local development.
