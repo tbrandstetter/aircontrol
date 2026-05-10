@@ -15,7 +15,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class ConnectionSupervisorTest {
 
@@ -60,9 +62,26 @@ class ConnectionSupervisorTest {
         assertThat(client.writes).containsExactly("1032=1");
     }
 
+    @Test
+    void maintainConnectionRetriesDeviceDetectionWhileConnected() throws IOException {
+        ModbusClient client = mock(ModbusClient.class);
+        when(client.isOpen()).thenReturn(true);
+
+        ConnectionSupervisor supervisor = supervisor(client, mock(RegisterRepository.class), true);
+
+        supervisor.onData("130 1033 42\r\n");
+        supervisor.maintainConnection();
+
+        verify(client, timeout(1000)).requestRegister(ConnectionSupervisor.DEVICE_ID_REGISTER);
+    }
+
     private ConnectionSupervisor supervisor(FakeModbusClient client, RegisterRepository repository) {
+        return supervisor(client, repository, false);
+    }
+
+    private ConnectionSupervisor supervisor(ModbusClient client, RegisterRepository repository, boolean deviceRecognition) {
         RegisterConfiguration configuration = new RegisterConfiguration();
-        configuration.setDeviceregognition(false);
+        configuration.setDeviceregognition(deviceRecognition);
         configuration.setDevicetype("17");
         configuration.setRegister(List.of(register(1032), register(ConnectionSupervisor.DEVICE_ID_REGISTER)));
 

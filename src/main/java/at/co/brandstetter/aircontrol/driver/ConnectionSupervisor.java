@@ -73,6 +73,11 @@ public class ConnectionSupervisor implements ModbusDataListener {
             currentState = ConnectionState.STALE;
         }
 
+        if (currentState == ConnectionState.CONNECTED && isAwaitingDeviceRecognition()) {
+            logger.debug("Device id not detected yet, retrying register {}", DEVICE_ID_REGISTER);
+            requestRead(DEVICE_ID_REGISTER);
+        }
+
         if (currentState == ConnectionState.STARTING
                 || currentState == ConnectionState.STALE
                 || currentState == ConnectionState.RECONNECTING
@@ -169,6 +174,10 @@ public class ConnectionSupervisor implements ModbusDataListener {
 
     public boolean isConnected() {
         return state.get() == ConnectionState.CONNECTED;
+    }
+
+    private boolean isAwaitingDeviceRecognition() {
+        return registerConfiguration.isDeviceregognition() && deviceId == null;
     }
 
     private void attemptOpen(String reason) {

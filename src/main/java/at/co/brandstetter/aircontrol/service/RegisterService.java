@@ -67,45 +67,47 @@ public class RegisterService implements RegisterServiceInterface {
 
     @Override
     public Optional<RegisterEntity> readRegister(int registerId) {
-        if (!isSupported(registerId)) {
+        if (registerCatalog.find(registerId).isEmpty()) {
             return Optional.empty();
         }
 
-        Optional<RegisterEntity> cached = registerRepository.findById(registerId).map(this::withMetadata);
-        if (cached.isEmpty() || isStale(cached.get())) {
+        Optional<RegisterEntity> cached = cachedRegister(registerId);
+        if (cached.isPresent()) {
+            if (isSupported(registerId) && isStale(cached.get())) {
+                connectionSupervisor.requestRead(registerId);
+            }
+            return cached;
+        }
+
+        if (isSupported(registerId)) {
             connectionSupervisor.requestRead(registerId);
         }
-        return cached;
+        return Optional.empty();
     }
 
     @Override
     public Optional<RegisterValueResponse> readRegisterStatus(int registerId) {
-        if (!isSupported(registerId)) {
+        if (registerCatalog.find(registerId).isEmpty()) {
             return Optional.empty();
         }
 
         ConnectionSnapshot snapshot = connectionSupervisor.snapshot();
-        RegisterEntity register = registerRepository.findById(registerId)
-                .map(this::withMetadata)
-                .orElseGet(() -> withMetadata(registerId));
-
-        if (isStale(register)) {
-            connectionSupervisor.requestRead(registerId);
+        Optional<RegisterEntity> cached = cachedRegister(registerId);
+        if (cached.isPresent()) {
+            RegisterEntity register = cached.get();
+            if (isSupported(registerId) && isStale(register)) {
+                connectionSupervisor.requestRead(registerId);
+            }
+            return Optional.of(toValueResponse(register, snapshot));
         }
 
-        Duration age = ageOf(register.getLastupdate());
-        return Optional.of(new RegisterValueResponse(
-                register.getRegister(),
-                register.getValue(),
-                register.getDescription(),
-                register.getMin(),
-                register.getMax(),
-                register.getDivisor(),
-                register.getLastupdate(),
-                isStale(register),
-                age,
-                snapshot.state()
-        ));
+        if (!isSupported(registerId)) {
+            return Optional.empty();
+        }
+
+        RegisterEntity register = withMetadata(registerId);
+        connectionSupervisor.requestRead(registerId);
+        return Optional.of(toValueResponse(register, snapshot));
     }
 
     @Override
@@ -117,6 +119,10 @@ public class RegisterService implements RegisterServiceInterface {
 
     private boolean isSupported(int id) {
         return registerCatalog.supportsDevice(id, connectionSupervisor.currentDeviceId());
+    }
+
+    private Optional<RegisterEntity> cachedRegister(int registerId) {
+        return registerRepository.findById(registerId).map(this::withMetadata);
     }
 
     private RegisterEntity withMetadata(RegisterEntity register) {
@@ -151,5 +157,21 @@ public class RegisterService implements RegisterServiceInterface {
             return modbusProperties.getStaleTimeout().plusSeconds(1);
         }
         return Duration.between(lastUpdate, LocalDateTime.now());
+    }
+
+    private RegisterValueResponse toValueResponse(RegisterEntity register, ConnectionSnapshot snapshot) {
+        Duration age = ageOf(register.getLastupdate());
+        return new RegisterValueResponse(
+                register.getRegister(),
+                register.getValue(),
+                register.getDescription(),
+                register.getMin(),
+                register.getMax(),
+                register.getDivisor(),
+                register.getLastupdate(),
+                isStale(register),
+                age,
+                snapshot.state()
+        );
     }
 }
